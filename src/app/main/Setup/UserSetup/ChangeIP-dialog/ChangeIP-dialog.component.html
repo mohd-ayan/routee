@@ -1,0 +1,23 @@
+<h1 matDialogTitle>Change IP and Port</h1>
+<div fxLayoutAlign="center" mat-dialog-actions>
+    <div fxFlex fxLayout="column">
+        <div appearance="outline" fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field appearance="outline">
+                <mat-label>IP Address</mat-label>
+                <input [formControl]="ipcontrol" autocomplete="off" matInput maxLength="15">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100px">
+                <mat-label>Port</mat-label>
+                <input (keypress)="isnumeric(portcontrol)" [formControl]="portcontrol" autocomplete="off" matInput
+                       maxLength="4">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row">
+            <button (click)="setipchange()" class="mat-accent mr-16"
+                    mat-raised-button>Change
+            </button>
+            <button (click)="dialogRef.close(false)" color="warn" mat-raised-button>Cancel</button>
+        </div>
+    </div>
+
+</div>

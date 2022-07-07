@@ -1,0 +1,56 @@
+<div fxLayout="column" id="lock">
+
+    <div fxLayout="column" fxLayoutAlign="center center" id="lock-form-wrapper">
+
+        <div [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}" id="lock-form">
+
+            <div class="lock-form-header" fxLayout="column" fxLayout.gt-xs="row"
+                 fxLayoutAlign="center center" fxLayoutAlign.gt-xs="start center">
+
+                <div class="avatar-container">
+                    <img class="avatar big" src="assets/images/avatars/katherine.jpg">
+                    <mat-icon class="s-32">lock</mat-icon>
+                </div>
+
+                <div>
+                    <div class="title">YOUR SESSION IS LOCKED</div>
+                    <div class="subtitle">
+                        Due to inactivity, your session is locked. Enter your password to continue.
+                    </div>
+                </div>
+
+            </div>
+
+            <form [formGroup]="lockForm" name="lockForm" novalidate>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input formControlName="username" matInput>
+                    <mat-icon class="disabled-text" matSuffix>account_circle</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input formControlName="password" matInput>
+                    <mat-icon class="secondary-text" matSuffix>vpn_key</mat-icon>
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <button [disabled]="lockForm.invalid" aria-label="UNLOCK" class="submit-button"
+                        color="accent" mat-raised-button>
+                    UNLOCK
+                </button>
+
+            </form>
+
+            <div class="message">
+                <a [routerLink]="'/pages/auth/login'" class="link">Are you not Katherine?</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

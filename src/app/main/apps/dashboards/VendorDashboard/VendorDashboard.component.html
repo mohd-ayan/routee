@@ -1,0 +1,178 @@
+<div class="page-layout simple right-sidebar inner-scroll" fxLayout="column" id="dashboard-analytics12">
+    <!-- CENTER -->
+    <div class="center" fxFlex>
+        <div class="main-widget" pristinePerfectScrollbar>
+            <mat-progress-bar *ngIf="!dashboardData"
+                              [bufferValue]="'85'"
+                              [color]="'warn'"
+                              [mode]="'indeterminate'"
+                              [value]="'75'"
+                              class="example-margin">
+            </mat-progress-bar>
+            <div class="wrapper">
+                <div fxLayout="column" fxLayout.gt-sm="row"
+                     fxLayoutAlign="start" fxLayoutAlign.gt-sm="start start">
+                    <div class="widget" fxFlex="100" fxFlex.gt-sm="33.33">
+
+                        <div [ngClass.gt-sm]="'mb-0 mr-32'" class="pristine-card auto-width mb-32" mat-ripple>
+
+                            <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                                <div class="pr-16">
+                                    <div class="h2 secondary-text">Pending Purchase Order</div>
+                                    <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                        <mat-icon class="warn-fg mr-4 font-size-40">add_shopping_cart</mat-icon>
+                                        &nbsp;{{dashboardData.length > 0 ? dashboardData[0].pending_po_order : 0}}
+                                    </div>
+                                </div>
+
+<!--                                <div class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">-->
+<!--                                    <div class="warn-fg" fxFlex="row" fxLayoutAlign="start center">-->
+<!--                                        &lt;!&ndash;                                        <mat-icon class="green-fg mr-4">trending_up</mat-icon>&ndash;&gt;-->
+<!--                                        <span>{{dashboardData.length > 0 ? dashboardData[0]?.total_pick_person : 0}}</span>-->
+<!--                                    </div>-->
+<!--                                    <div class="ml-4 text-nowrap">Picker</div>-->
+<!--                                </div>-->
+
+                            </div>
+
+                            <div class="h-50 w-100-p">
+                                &nbsp;
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="widget" fxFlex="100" fxFlex.gt-sm="33.33">
+
+                        <div [ngClass.gt-sm]="'mb-0 mr-32'" class="pristine-card auto-width mb-32" mat-ripple>
+
+                            <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                                <div class="pr-16">
+                                    <div class="h2 secondary-text">PO Report (Ready For Download)</div>
+                                    <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                        <img src="/assets/images/pending_po.png" width="50" height="50">
+                                        &nbsp;{{dashboardData.length > 0 ? dashboardData[0].po_report_ready_for_download : 0}}
+                                    </div>
+                                </div>
+
+                                <!--                                <div class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">-->
+                                <!--                                    <div class="warn-fg" fxFlex="row" fxLayoutAlign="start center">-->
+                                <!--                                        &lt;!&ndash;                                        <mat-icon class="green-fg mr-4">trending_up</mat-icon>&ndash;&gt;-->
+                                <!--                                        <span>{{dashboardData.length > 0 ? dashboardData[0]?.total_pick_person : 0}}</span>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="ml-4 text-nowrap">Picker</div>-->
+                                <!--                                </div>-->
+
+                            </div>
+
+                            <div class="h-50 w-100-p">
+                                &nbsp;
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="widget" fxFlex="100" fxFlex.gt-sm="33.33">
+
+                        <div (click)="router.navigateByUrl('reports/pickDistributionReport')" [ngClass.gt-sm]="'mb-0 mr-32'" class="pristine-card auto-width mb-32"
+                             mat-ripple>
+
+                            <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+
+                                <div class="pr-16">
+                                    <div class="h2 secondary-text">Pending For Gate Entry</div>
+                                    <div class="font-size-54 font-weight-300 line-height-1 mt-8">
+                                        <mat-icon class="warn-fg mr-4 font-size-40">equalizer
+                                        </mat-icon>&nbsp;&nbsp;{{dashboardData.length > 0 ? dashboardData[0].pending_packing_list_gate_entry : 0}}
+                                    </div>
+                                </div>
+
+                                <div class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">
+                                    <div class="warn-fg" fxFlex="row" fxLayoutAlign="start center">
+                                        <!--                                        <mat-icon class="green-fg mr-4">trending_up</mat-icon>-->
+                                        <span></span>
+                                    </div>
+                                    <div class="ml-4 text-nowrap"></div>
+                                </div>
+
+                            </div>
+                            <div class="h-50 w-100-p">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                    </div>
+<!--                    <div class="widget" fxFlex="100" fxFlex.gt-sm="33.33">-->
+
+<!--                        <div (click)="router.navigateByUrl('masters/prioritymaster')" [ngClass.gt-sm]="'mb-0 mr-4'" class="pristine-card auto-width mb-32"-->
+<!--                             mat-ripple>-->
+
+<!--                            <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">-->
+
+<!--                                <div class="pr-16">-->
+<!--                                    <div class="h2 secondary-text">For Priority Change</div>-->
+<!--                                    <div class="font-size-54 font-weight-300 line-height-1 mt-8">-->
+<!--                                        <mat-icon class="warn-fg mr-4 font-size-40">low_priority-->
+<!--                                        </mat-icon>&nbsp;&nbsp;{{dashboardData.length > 0 ? dashboardData[0].total_pick_priority : 0}}-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="py-4 font-size-16" fxLayout="row" fxLayoutAlign="start center">-->
+<!--                                    <div class="warn-fg" fxFlex="row" fxLayoutAlign="start center">-->
+<!--                                        &lt;!&ndash;                                        <mat-icon class="green-fg mr-4">trending_up</mat-icon>&ndash;&gt;-->
+<!--                                        <span></span>-->
+<!--                                    </div>-->
+<!--                                    <div class="ml-4 text-nowrap"></div>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+<!--                            <div class="h-50 w-100-p">-->
+<!--                                &nbsp;-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+                </div>
+            </div>
+<!--            <div class="wrapper">-->
+<!--                <div fxLayout="column" fxLayout.gt-sm="row"-->
+<!--                     fxLayoutAlign="start" fxLayoutAlign.gt-sm="start start">-->
+<!--                    <div class="widget" fxFlex="100" fxFlex.gt-sm="100">-->
+
+<!--                        <div class="pristine-card auto-width mb-32">-->
+
+<!--                            <div class="p-16" fxLayout="row wrap" fxLayoutAlign="start end">-->
+<!--                                <div class="b2bDashboard-table">-->
+<!--                                    <ng2-smart-table [settings]="ZoneWiseData"-->
+<!--                                                     [source]="ZoneWiseDataSource"></ng2-smart-table>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="p-20 mr-32">
+                <mat-card>
+                    <div class="h2 secondary-text"><b>Recent Activities</b><br><br></div>
+                    <div fxLayout="column"  *ngFor="let vendorActivityLog of vendorActivityLogs ; let i = index">
+
+                        <div fxLayout="row" class="p-16" fxLayoutAlign="space-between center">
+                            <div style="font-size: 16px">{{vendorActivityLog.description}}</div>
+                            <div style="font-size: 14px">{{vendorActivityLog.created_on}}&nbsp;&nbsp;<mat-icon style="font-size: 15px">access_alarms</mat-icon></div>
+                        </div>
+                        <mat-divider ></mat-divider>
+                    </div>
+                </mat-card>
+            </div>
+
+        </div>
+    </div>
+</div>
+

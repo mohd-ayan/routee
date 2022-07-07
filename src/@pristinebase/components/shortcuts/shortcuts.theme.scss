@@ -1,0 +1,11 @@
+@mixin pristine-shortcuts-theme($theme) {
+
+    $background: map-get($theme, background);
+
+    #pristine-shortcuts {
+
+        &.show-mobile-panel {
+            background-color: map-get($background, background);
+        }
+    }
+}

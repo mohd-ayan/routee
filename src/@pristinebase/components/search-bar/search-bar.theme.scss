@@ -1,0 +1,11 @@
+@mixin pristine-search-bar-theme($theme) {
+
+    $background: map-get($theme, background);
+
+    .pristine-search-bar {
+
+        &.expanded {
+            background-color: map-get($background, background);
+        }
+    }
+}

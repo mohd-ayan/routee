@@ -1,0 +1,24 @@
+<div class="page-layout simple fullwidth inner-scroll" fxLayout="column" id="UserSetup">
+    <div class="content p-20" pristinePerfectScrollbar>
+        <div fxLayout="column" fxLayoutAlign="start">
+            <div class="pristine-card auto-width mat-elevation-z1 mb-32" fxFlex="1 0 auto" fxLayout="column"
+                 fxLayoutAlign="start">
+                <h3 class="headofcard">User Setup
+                    <button (click)="downloadExcel()" mat-icon-button
+                            style="margin-right: 15px;float: right;box-shadow: 1px 1px 1px 1px rgba(170,170,170,0.42)">
+                        <mat-icon>cloud_download</mat-icon>
+                    </button>
+                    <button (click)="AddUserDetail()" mat-icon-button
+                            style="margin-right: 15px;float: right;box-shadow: 1px 1px 1px 1px rgba(170,170,170,0.42)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </h3>
+                <div fxLayout="column" fxLayoutAlign="start">
+                    <mat-divider></mat-divider>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start">
+                    <div class="ng-table">
+                        <ng2-smart-table (delete)="onIPchange($event)" (edit)="EditUser($event)"
+                                         [settings]="UserData" [source]="AllUserDataSource"></ng2-smart-table>
+                    </div>
+                </div>

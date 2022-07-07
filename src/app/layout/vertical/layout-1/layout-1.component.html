@@ -1,0 +1,144 @@
+<!-- SIDE PANEL -->
+<ng-container *ngIf="!pristineConfig.layout.sidepanel.hidden && pristineConfig.layout.sidepanel.position === 'left'">
+
+    <!-- CHAT PANEL -->
+    <pristine-sidebar name="chatPanel" position="left" class="chat-panel left-chat-panel"
+                  [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"
+                  lockedOpen="gt-md">
+        <chat-panel></chat-panel>
+    </pristine-sidebar>
+    <!-- / CHAT PANEL -->
+
+</ng-container>
+<!-- / SIDE PANEL -->
+
+<div id="main">
+
+    <!-- TOOLBAR: Above -->
+    <ng-container *ngIf="pristineConfig.layout.toolbar.position === 'above'">
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+    </ng-container>
+    <!-- / TOOLBAR: Above -->
+
+    <div id="container-1" class="container">
+
+        <!-- NAVBAR: Left -->
+        <ng-container *ngIf="pristineConfig.layout.navbar.position === 'left'">
+            <ng-container *ngTemplateOutlet="leftNavbar"></ng-container>
+        </ng-container>
+        <!-- / NAVBAR: Left -->
+
+        <div id="container-2" class="container">
+
+            <!-- TOOLBAR: Below fixed -->
+            <ng-container *ngIf="pristineConfig.layout.toolbar.position === 'below-fixed'">
+                <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+            </ng-container>
+            <!-- / TOOLBAR: Below fixed -->
+
+            <div id="container-3" class="container" pristinePerfectScrollbar
+                 [pristinePerfectScrollbarOptions]="{suppressScrollX: true, updateOnRouteChange : true}">
+
+                <!-- TOOLBAR: Below static -->
+                <ng-container *ngIf="pristineConfig.layout.toolbar.position === 'below-static'">
+                    <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+                </ng-container>
+                <!-- / TOOLBAR: Below static -->
+
+                <!-- CONTENT -->
+                <content></content>
+                <!-- / CONTENT -->
+
+                <!-- FOOTER: Below static -->
+<!--                <ng-container *ngIf="pristineConfig.layout.footer.position === 'below-static'">-->
+<!--                    <ng-container *ngTemplateOutlet="footer"></ng-container>-->
+<!--                </ng-container>-->
+                <!-- / FOOTER: Below static -->
+
+            </div>
+
+            <!-- FOOTER: Below fixed -->
+<!--            <ng-container *ngIf="pristineConfig.layout.footer.position === 'below-fixed'">-->
+<!--                <ng-container *ngTemplateOutlet="footer"></ng-container>-->
+<!--            </ng-container>-->
+            <!-- / FOOTER: Below fixed -->
+
+        </div>
+
+        <!-- NAVBAR: Right -->
+        <ng-container *ngIf="pristineConfig.layout.navbar.position === 'right'">
+            <ng-container *ngTemplateOutlet="rightNavbar"></ng-container>
+        </ng-container>
+        <!-- / NAVBAR: Right -->
+
+    </div>
+
+    <!-- FOOTER: Above -->
+<!--    <ng-container *ngIf="pristineConfig.layout.footer.position === 'above'">-->
+<!--        <ng-container *ngTemplateOutlet="footer"></ng-container>-->
+<!--    </ng-container>-->
+    <!-- FOOTER: Above -->
+
+</div>
+
+<!-- SIDE PANEL -->
+<!--<ng-container *ngIf="!pristineConfig.layout.sidepanel.hidden && pristineConfig.layout.sidepanel.position === 'right'">-->
+
+<!--    &lt;!&ndash; CHAT PANEL &ndash;&gt;-->
+<!--    <pristine-sidebar name="chatPanel" position="right" class="chat-panel right-chat-panel"-->
+<!--                  [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"-->
+<!--                  lockedOpen="gt-md">-->
+<!--        <chat-panel></chat-panel>-->
+<!--    </pristine-sidebar>-->
+<!--    &lt;!&ndash; / CHAT PANEL &ndash;&gt;-->
+
+<!--</ng-container>-->
+<!-- / SIDE PANEL -->
+
+<!-- QUICK PANEL -->
+<pristine-sidebar name="quickPanel" position="right" class="quick-panel">
+    <quick-panel></quick-panel>
+</pristine-sidebar>
+<!-- / QUICK PANEL -->
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+<!-- @ PARTIALS                                                                                            -->
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+<!-- TOOLBAR -->
+<ng-template #toolbar>
+    <toolbar *ngIf="!pristineConfig.layout.toolbar.hidden"
+             [ngClass]="pristineConfig.layout.toolbar.customBackgroundColor === true ? pristineConfig.layout.toolbar.position + ' ' + pristineConfig.layout.toolbar.background : pristineConfig.layout.toolbar.position">
+    </toolbar>
+</ng-template>
+<!-- / TOOLBAR -->
+
+<!-- FOOTER -->
+<!--<ng-template #footer>-->
+<!--    <footer *ngIf="!pristineConfig.layout.footer.hidden"-->
+<!--            [ngClass]="pristineConfig.layout.footer.customBackgroundColor === true ? pristineConfig.layout.footer.position + ' ' + pristineConfig.layout.footer.background : pristineConfig.layout.footer.position">-->
+<!--    </footer>-->
+<!--</ng-template>-->
+<!-- / FOOTER -->
+
+<!-- LEFT NAVBAR -->
+<ng-template #leftNavbar>
+    <pristine-sidebar name="navbar" class="navbar-pristine-sidebar"
+                  [folded]="pristineConfig.layout.navbar.folded"
+                  lockedOpen="gt-md"
+                  *ngIf="!pristineConfig.layout.navbar.hidden">
+        <navbar [variant]="pristineConfig.layout.navbar.variant" class="left-navbar"></navbar>
+    </pristine-sidebar>
+</ng-template>
+<!-- / LEFT NAVBAR -->
+
+<!-- RIGHT NAVBAR -->
+<ng-template #rightNavbar>
+    <pristine-sidebar name="navbar" position="right" class="navbar-pristine-sidebar"
+                  [folded]="pristineConfig.layout.navbar.folded"
+                  lockedOpen="gt-md"
+                  *ngIf="!pristineConfig.layout.navbar.hidden">
+        <navbar [variant]="pristineConfig.layout.navbar.variant" class="right-navbar"></navbar>
+    </pristine-sidebar>
+</ng-template>
+<!-- / RIGHT NAVBAR -->

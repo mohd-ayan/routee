@@ -1,0 +1,52 @@
+<div class="navbar-top">
+    <div class="logo">
+        <div class="buttons">
+            <button (click)="toggleSidebarFolded()" class="toggle-sidebar-folded"
+                    fxHide.lt-lg mat-icon-button>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+        </div>&nbsp;&nbsp;
+        <img class="logo-icon" src="assets/images/logos/zivame_with_logo.jpg">
+        <span class="logo-text secondary-text"> <img src="http://cdn.zivame.com/media/mimages/rb/favicon.ico?1"></span>
+    </div>
+
+    <div class="buttons">
+        <button (click)="toggleSidebarOpened()" class="toggle-sidebar-opened"
+                fxHide.gt-md mat-icon-button>
+            <mat-icon class="secondary-text">arrow_back</mat-icon>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div [ngClass]="'navbarscrollcontainer'" [pristinePerfectScrollbarOptions]="{suppressScrollX: true}"
+     class="navbar-scroll-container" pristinePerfectScrollbar>
+
+    <!--    <div class="user" fxLayout="column" [ngClass]="'bavbarscrollHeader'">-->
+
+    <!--        <div class="h3 username">Charlie Adams</div>-->
+    <!--        <div class="h5 email hint-text mt-8">adams.charlie@mail.com</div>-->
+    <!--        <div class="avatar-container" [ngClass]="pristineConfig.layout.navbar.primaryBackground">-->
+    <!--            <img class="avatar" src="assets/images/avatars/person_aa.svg">-->
+    <!--        </div>-->
+
+    <!--    </div>-->
+
+    <div class="navbar-content">
+        <pristine-navigation  class="material2" layout="vertical"></pristine-navigation>
+    </div>
+
+</div>
+
+<div class="m-0 p-4 " style="background: white">
+    <mat-divider></mat-divider>
+    <div class="my_about_us_row p-12"  fxLayout="row" fxLayoutAlign="center center">
+
+        <img class="about_us_icon" src="assets/images/logos/mylogo.png" style="width: 25px;height: 30px;">
+        &nbsp;&nbsp;
+        <span class="about_us_text"><a href="https://pristinebs.com" target="_blank">Powered By : <b> Pristine</b></a></span>
+
+    </div>
+</div>

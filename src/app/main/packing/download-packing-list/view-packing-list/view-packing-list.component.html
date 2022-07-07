@@ -1,0 +1,147 @@
+<div class="page-layout simple fullwidth inner-scroll" fxLayout="column" id="viewPackingList">
+    <div pristinePerfectScrollbar>
+        <div fxLayout="column" fxLayoutAlign="start">
+            <div class="mat-card mat-elevation-z1" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="start">
+                <div class="h4 mb-4 p-16" style="background-color: rgba(255,192,203,0.73)">
+                    View Packing Upload
+                    <button (click)="ClosePacking()" mat-icon-button matTooltip="Close"
+                            style="margin-left:10px;margin-top: -10px;background-color:#ffffff;float: right;box-shadow: 1px 1px 1px 1px #ffffff">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+
+                <div class="p-8" fxLayout="row" fxFlex="100" fxLayoutGap="5%">
+                    <mat-label fxFlex="20"><b>Invoice No</b><br>{{this.packing_list[0].invoice_number}}</mat-label>
+                    <mat-label fxFlex="20"><b>PO No</b><br>{{this.packing_list[0].document_number}}</mat-label>
+                    <mat-label fxFlex="20"><b>Vendor Code</b><br>{{this.vendor_no}}</mat-label>
+                    <button class="p-4" (click)="PrintPacking()" mat-raised-button color="accent" style="height: 25%"
+                            fxFlex="25">
+                        <mat-icon>print</mat-icon>&nbsp;&nbsp;Print Packing
+                    </button>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="p-8" fxFlex fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start">
+                    <div fxFlex="100" fxLayout="column">
+                        <div class="example-container">
+                            <table mat-table matSort [dataSource]="dataSource">
+                                <ng-container [stickyEnd]="column=='View'" *ngFor="let column of displayColumn"
+                                              [matColumnDef]="column">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <div class="filterHeader">
+                                            <b mat-sort-header *ngIf="column!='description' && column!='customeTolerance' &&
+                                             column!='qtyToPrint' && column!='additionalBarcodePrint' &&
+                                             column!='barcodePrinted' && column!='remainingBarcodeWithTolerance' &&
+                                             column!='remainingBarcodeWithoutTolerance'">{{column|firstAnd_Split}}</b>
+<!--                                            <b mat-sort-header style="width: 200px" *ngIf="column=='description'">Item-->
+<!--                                                Name</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='customeTolerance'">Max Tolerance</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='qtyToPrint'">Qty To Print</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='additionalBarcodePrint'">Additional-->
+<!--                                                Barcode Print</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='barcodePrinted'">Barcode Printed</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='remainingBarcodeWithTolerance'">Rem-->
+<!--                                                Barcode With Tolerance</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='remainingBarcodeWithoutTolerance'">Rem-->
+<!--                                                Barcode Without Tolerance</b>-->
+                                            <br>
+                                            <input (keyup)="applyFilter($event.target.value,column)"
+                                                   [placeholder]="column|firstAnd_Split">
+                                            <ng-template #elseblockheader>
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='description';"-->
+<!--                                                       [placeholder]="'Item Name'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='customeTolerance';"-->
+<!--                                                       [placeholder]="'Max Tolerance'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='qtyToPrint';"-->
+<!--                                                       [placeholder]="'Qty To Print'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='additionalBarcodePrint';"-->
+<!--                                                       [placeholder]="'Additional Barcode Print'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='barcodePrinted';"-->
+<!--                                                       [placeholder]="'Barcode Printed'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='remainingBarcodeWithTolerance';"-->
+<!--                                                       [placeholder]="'Remaining Barcode With Tolerance'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='remainingBarcodeWithoutTolerance';"-->
+<!--                                                       [placeholder]="'Remaining Barcode Without Tolerance'">-->
+                                            </ng-template>
+                                        </div>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element; let i = index">
+                                        <p>{{element[column]}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayColumn;"></tr>
+                            </table>
+                        </div>
+                        <b style="padding: 5px" *ngIf="dataSource?.data?.length==0">No Record Found.</b>
+                        <mat-paginator [pageSizeOptions]="[5,10, 20, 50,100]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--print barcode-->
+<!--<div id="content" #content style="display:none;">-->
+<!--    <table *ngFor="let item of purchase_order_list;let i=index">-->
+<!--        <br>-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--            <td colspan="6" style="text-align: center">-->
+<!--                &lt;!&ndash;<ejs-barcodegenerator style="display: block;" width="200px" height="150px" mode="SVG" type="Code128" value="{{item.PackingList_Barcode}}">&ndash;&gt;-->
+<!--&lt;!&ndash;                </ejs-barcodegenerator>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <ejs-barcodegenerator style="display: block;" #barcode id="barcode" width="200px" height="150px"mode="SVG" type="Code128" value="SYNCFUSION"></ejs-barcodegenerator>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <ngx-barcode [bc-font-size]="10" [bc-margin-top]="-10" [bc-margin-bottom]="0" [bc-text-margin]="0"&ndash;&gt;-->
+<!--                &lt;!&ndash;                             [bc-width]="2" [bc-height]="70" [bc-font-size]="10" [bc-font-options]="fontOptions"&ndash;&gt;-->
+<!--                &lt;!&ndash;                             [bc-font]="font" [bc-value]="purchase_order_list" [bc-element-type]="elementType"&ndash;&gt;-->
+<!--                &lt;!&ndash;                             [bc-format]="barcodeformat"&ndash;&gt;-->
+<!--                &lt;!&ndash;                             [bc-display-value]="true"></ngx-barcode>&ndash;&gt;-->
+<!--            </td>-->
+<!--            <td colspan="5" >-->
+<!--                <p>-->
+<!--                    <b>Vendor Name : </b> {{this.packing_list[0].Name}}-->
+<!--                    <br>-->
+<!--                    <b>Vendor Address : </b> {{this.packing_list[0].Address + ' ' + this.packing_list[0].Address2}}-->
+<!--                </p>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th>Po No.</th>-->
+<!--            <th>Invoice No.</th>-->
+<!--            <th>Item</th>-->
+<!--            <th>Color</th>-->
+<!--            <th>Size</th>-->
+<!--            <th>Style Code</th>-->
+<!--            <th>Category</th>-->
+<!--            <th>Mch1</th>-->
+<!--            <th>Mch2</th>-->
+<!--            <th>Mch3</th>-->
+<!--            <th>Quantity</th>-->
+<!--        </tr>-->
+<!--        <tr *ngFor="let subitem of item.lines">-->
+<!--            <th>{{subitem.document_number}}</th>-->
+<!--            <th>{{subitem.Invoice_number}}</th>-->
+<!--            <th>{{subitem.barcode}}</th>-->
+<!--            <th>{{subitem?.pl[0].Color}}</th>-->
+<!--            <th>{{subitem?.pl[0].Size}}</th>-->
+<!--            <th>{{subitem?.pl[0].Style}}</th>-->
+<!--            <th>{{subitem?.pl[0].category}}</th>-->
+<!--            <th>{{subitem?.pl[0].mch1}}</th>-->
+<!--            <th>{{subitem?.pl[0].mch2}}</th>-->
+<!--            <th>{{subitem?.pl[0].mch3}}</th>-->
+<!--            <th>{{subitem.Quantity}}</th>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--        <p *ngIf="i!=0" style="page-break-after: always;">&nbsp;</p>-->
+<!--    </table>-->
+<!--</div>-->

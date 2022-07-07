@@ -1,0 +1,161 @@
+<div class="page-layout simple fullwidth inner-scroll" fxLayout="column" id="packingList">
+    <div class="content p-20" pristinePerfectScrollbar>
+        <div class="mb-24" fxLayout="column" fxLayoutAlign="start">
+            <div class="mat-card mat-elevation-z1" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="start">
+                <div class="h4 p-16" style="background-color: rgba(255,192,203,0.73)">
+                    Packing List
+                    <button (click)="sample_packing()" mat-icon-button matTooltip="Export Packing List Format"
+                            style="margin-left:10px;margin-top: -10px;background-color:#ffffff;float: right;box-shadow: 1px 1px 1px 1px #ffffff">
+                        <mat-icon>cloud_download</mat-icon>
+                    </button>
+                </div>
+
+                <div class="p-8" fxLayout="row" fxFlex="100" fxLayoutGap="2%">
+<!--                    <mat-form-field appearance="outline" fxFlex="50">-->
+<!--                        <mat-label>Vendor Name</mat-label>-->
+<!--                        <input appearance="outline" [formControl]="vendorName" matInput readonly>-->
+<!--                    </mat-form-field>-->
+                    <mat-form-field class="example-full-width" fxFlex="50" appearance="outline">
+                        <mat-label>Select Purchase Order</mat-label>
+                        <input type="text"
+                               placeholder="Select Purchase Order"
+                               aria-label="Number"
+                               matInput
+                               [formControl]="sel_purchase_no"
+                               (keyup)="_filter(sel_purchase_no.value)"
+                               [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let po_no of filter_purchase_order_list"
+                                        [value]="po_no.purchaseOrderNo">{{po_no.purchaseOrderNo}}</mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <div fxFlex="50" ></div>
+                </div>
+
+                <div class="p-8" fxLayout="row" fxFlex="100" fxLayoutGap="2%">
+                    <div class="image-upload-wrap" fxFlex="100" (click)="fileOpener()">
+                        <div class="drag-text">
+                            <h3>Drag and drop a file or Just click</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8" fxLayout="row" fxFlex="100" fxLayoutGap="2%" (mousemove)="hideKeyboard()" *ngIf="validateUploadorNot">
+                    <button mat-raised-button color="warn" style="height: 25%" style="width: 100%"
+                            (click)="removeAllFileData()">Cancel
+                    </button>
+                    <button mat-raised-button color="accent" style="height: 25%" style="width: 100%"
+                            (click)="PostFileData()">Post
+                    </button>
+                </div>
+
+                <div [ngStyle]="{'display':(validateUploadorNot?'block':'none')}">
+
+                    <div class="tbl-content"  >
+                    <div fxFlex="100" fxLayout="column" >
+                        <div class="example-container">
+                            <table mat-table matSort [dataSource]="dataSource">
+                                <ng-container [stickyEnd]="column=='View'" *ngFor="let column of displayColumn"
+                                              [matColumnDef]="column">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <div class="filterHeader">
+                                            <b mat-sort-header>{{column|firstAnd_Split}}</b>
+                                            <br>
+                                            <input (keyup)="applyFilter($event.target.value,column)"
+                                                   [placeholder]="column|firstAnd_Split">
+                                        </div>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element; let i = index">
+                                        <p >{{element[column]}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayColumn;"></tr>
+                            </table>
+                        </div>
+                        <b style="padding: 5px" *ngIf="dataSource?.data?.length==0">No Record Found.</b>
+                        <mat-paginator [pageSizeOptions]="[10, 20, 50,100]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+
+                </div>
+
+<!--                <div class="p-8" fxFlex fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start">-->
+<!--                    <div fxFlex="100" fxLayout="column">-->
+<!--                        <div class="example-container">-->
+<!--                            <table mat-table matSort [dataSource]="dataSource">-->
+<!--                                <ng-container [stickyEnd]="column=='View'" *ngFor="let column of displayColumn"-->
+<!--                                              [matColumnDef]="column">-->
+<!--                                    <th mat-header-cell *matHeaderCellDef>-->
+<!--                                        <div class="filterHeader">-->
+<!--                                            <b mat-sort-header *ngIf="column!='description' && column!='customeTolerance' &&-->
+<!--                                             column!='qtyToPrint' && column!='additionalBarcodePrint' &&-->
+<!--                                             column!='barcodePrinted' && column!='remainingBarcodeWithTolerance' &&-->
+<!--                                             column!='remainingBarcodeWithoutTolerance'">{{column|firstAnd_Split}}</b>-->
+<!--                                            <b mat-sort-header style="width: 200px" *ngIf="column=='description'">Item-->
+<!--                                                Name</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='customeTolerance'">Max Tolerance</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='qtyToPrint'">Qty To Print</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='additionalBarcodePrint'">Additional-->
+<!--                                                Barcode Print</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='barcodePrinted'">Barcode Printed</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='remainingBarcodeWithTolerance'">Rem-->
+<!--                                                Barcode With Tolerance</b>-->
+<!--                                            <b mat-sort-header *ngIf="column=='remainingBarcodeWithoutTolerance'">Rem-->
+<!--                                                Barcode Without Tolerance</b>-->
+<!--                                            <br>-->
+<!--                                            <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                   *ngIf="column!='description' && column!='customeTolerance' &&-->
+<!--                                                     column!='qtyToPrint' && column!='additionalBarcodePrint' &&-->
+<!--                                                     column!='barcodePrinted' && column!='remainingBarcodeWithTolerance' &&-->
+<!--                                                     column!='remainingBarcodeWithoutTolerance';else elseblockheader"-->
+<!--                                                   [placeholder]="column|firstAnd_Split">-->
+<!--                                            <ng-template #elseblockheader>-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='description';"-->
+<!--                                                       [placeholder]="'Item Name'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='customeTolerance';"-->
+<!--                                                       [placeholder]="'Max Tolerance'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='qtyToPrint';"-->
+<!--                                                       [placeholder]="'Qty To Print'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='additionalBarcodePrint';"-->
+<!--                                                       [placeholder]="'Additional Barcode Print'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='barcodePrinted';"-->
+<!--                                                       [placeholder]="'Barcode Printed'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='remainingBarcodeWithTolerance';"-->
+<!--                                                       [placeholder]="'Remaining Barcode With Tolerance'">-->
+<!--                                                <input (keyup)="applyFilter($event.target.value,column)"-->
+<!--                                                       *ngIf="column=='remainingBarcodeWithoutTolerance';"-->
+<!--                                                       [placeholder]="'Remaining Barcode Without Tolerance'">-->
+<!--                                            </ng-template>-->
+<!--                                        </div>-->
+<!--                                    </th>-->
+<!--                                    <td mat-cell *matCellDef="let element; let i = index">-->
+<!--                                        <p *ngIf="column!='qtyToPrint' && column!='description' ;else elseblock">{{element[column]}}</p>-->
+<!--                                        <ng-template #elseblock>-->
+<!--                                            <div class="filterHeader">-->
+<!--                                            </div>-->
+<!--                                            <p style="width: 200px"-->
+<!--                                               *ngIf="column=='description'">{{element[column]}}</p>-->
+<!--                                        </ng-template>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+
+<!--                                <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>-->
+<!--                                <tr mat-row *matRowDef="let row; columns: displayColumn;"></tr>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                        <b style="padding: 5px" *ngIf="dataSource?.data?.length==0">No Record Found.</b>-->
+<!--                        <mat-paginator [pageSizeOptions]="[10, 20, 50,100]" showFirstLastButtons></mat-paginator>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

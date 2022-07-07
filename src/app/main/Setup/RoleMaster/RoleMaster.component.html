@@ -1,0 +1,58 @@
+<div class="page-layout simple fullwidth inner-scroll" fxLayout="column" id="RoleMaster">
+    <div class="content p-20" pristinePerfectScrollbar>
+        <div fxLayout="column" fxLayoutAlign="start">
+            <div class="pristine-card auto-width mat-elevation-z1 mb-32" fxFlex="1 0 auto" fxLayout="column"
+                 fxLayoutAlign="start">
+                <h3 class="headofcard">
+                    Role Master
+                    <button mat-icon-button style="float: right">
+                        <mat-icon (click)="AddRoleMaster()">add</mat-icon>
+                    </button>
+                </h3>
+                <div fxLayout="column" fxLayoutAlign="start">
+                    <mat-divider></mat-divider>
+                </div>
+                <div class="p-8">
+                    <div fxFlex fxLayout="column" fxLayout.gt-sm="row" style="padding-top: 10px">
+                        <mat-chip-list>
+                            <mat-chip (click)="clickonChips(roleData.role_id,roleData.role_name)"
+                                      *ngFor="let roleData of RoleData" style="cursor: pointer">{{roleData.role_name}}
+                                <mat-icon (click)="DeleteRole(roleData.role_id)" matChipRemove>cancel</mat-icon>
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+                <div *ngIf="RolePermissionDetail?.length>0" class="p-8">
+                    <mat-divider></mat-divider>
+                    <h4 *ngIf="RolePermissionDetail?.length>0">
+                        Page permission Detail for Role :
+                        <p style="color:red;display:inline-block">{{role_name}}</p>
+                        <button (click)="SubmitRoleMaster()" color="primary" mat-raised-button matTooltip="Save Changes"
+                                style="float: right">
+                            <mat-icon>save</mat-icon>&nbsp;SAVE
+                        </button>
+                    </h4>
+                    <mat-spinner *ngIf="loading" diameter="30" mode="indeterminate"></mat-spinner>
+                    <!--                    todo arjun-->
+                    <div *ngFor="let parent of RolePermissionDetail;let i=index">
+                        <div class="ckeckBoxStyle p-4">
+                            <button (click)="parent.check=!parent.check" mat-icon-button>
+                                <mat-icon *ngIf="parent.check==undefined || parent.check==false">keyboard_arrow_right
+                                </mat-icon>
+                                <mat-icon *ngIf="parent.check">keyboard_arrow_down</mat-icon>
+                            </button> &nbsp;&nbsp;
+                            <mat-checkbox (change)="clickParentNode($event,i)" (click)="parent.check=!parent.check"
+                                          [checked]="getStatus(parent)"
+                                          [disabled]="getStatus(parent)">{{parent.menu_name}}</mat-checkbox>
+                            <div *ngIf="parent.check">
+                                <div *ngFor="let child of parent.children" class="childrenClass">
+                                    <mat-checkbox [(ngModel)]="child.check">{{child.children_name}}</mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

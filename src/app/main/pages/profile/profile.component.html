@@ -1,0 +1,46 @@
+<div class="page-layout simple tabbed" id="profile">
+
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center"
+         fxLayoutAlign.gt-sm="space-between end">
+
+        <div class="user-info" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center"
+             fxLayoutAlign.gt-sm="start center">
+            <img [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}" class="profile-image avatar huge"
+                 src="assets/images/avatars/Velazquez.jpg">
+            <div [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}" class="name">
+                Charlie Adams
+            </div>
+        </div>
+
+        <div [@animate]="{value:'*',params:{delay:'200ms'}}" class="actions" fxLayout="row" fxLayoutAlign="end center">
+            <button aria-label="Follow" color="accent" mat-raised-button>Follow</button>
+            <button aria-label="Send Message" color="primary" mat-raised-button>Send Message</button>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Timeline">
+                <profile-timeline></profile-timeline>
+            </mat-tab>
+
+            <mat-tab label="About">
+                <profile-about></profile-about>
+            </mat-tab>
+
+            <mat-tab label="Photos & Videos">
+                <profile-photos-videos></profile-photos-videos>
+            </mat-tab>
+
+        </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

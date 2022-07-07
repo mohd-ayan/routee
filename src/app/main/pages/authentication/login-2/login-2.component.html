@@ -1,0 +1,119 @@
+<div class="inner-scroll" fxLayout="row" fxLayoutAlign="start" id="login">
+
+    <div fxFlex fxHide fxShow.gt-xs id="login-intro">
+
+        <div [@animate]="{value:'*',params:{scale:'0.2'}}" class="logo">
+            <img alt="Logo" src="assets/images/logos/mylogo.png">
+        </div>
+
+        <div [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}" class="title">
+            Welcome to the VendorPanel
+        </div>
+
+<!--        <div [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}" class="description">-->
+<!--            Pristinefulfil offers complete warehousing solution covering all aspects of warehouse operations.-->
+<!--            It is fast to implement and adapt. Customers are expericiencing immediate improvement in operational-->
+<!--            efficiency and have used pristinefulfil to better manage their warehouse.-->
+<!--        </div>-->
+
+        <div [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}" class="description">
+        The suite allows you to manage both strategic and operational sourcing on one secure platform and drives best practice in managing decentralised spend.
+        By integrating access to a range of sourcing options, the platform’s unique functionality helps you optimise value, manage risk, and support business objectives.
+        </div>
+
+    </div>
+
+    <div [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}" id="login-form-wrapper"
+         pristinePerfectScrollbar>
+
+        <div id="login-form">
+
+            <div class="logo" fxHide.gt-xs>
+                <img src="assets/images/logos/mylogo.png" width="80">
+            </div>
+
+            <div class="title">LOGIN TO YOUR ACCOUNT</div>
+
+            <form [formGroup]="loginForm" name="loginForm" novalidate>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Vendor Code</mat-label>
+                    <input formControlName="email" matInput>
+                    <mat-icon class="secondary-text" matSuffix>person</mat-icon>
+                    <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                        Vendor Code is required
+                    </mat-error>
+                    <mat-error
+                            *ngIf="!loginForm.get('email').hasError('required') &&
+                                loginForm.get('email').hasError('email')">
+                        Please enter a valid vendor code
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="password_show" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input formControlName="password" matInput type="password" >
+                    <mat-icon class="secondary-text" matSuffix>vpn_key</mat-icon>
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <div *ngIf="!forget" class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                     fxLayoutAlign="end">
+                    <!--                    <mat-checkbox class="remember-me" aria-label="Remember Me">-->
+                    <!--                        Remember Me-->
+                    <!--                    </mat-checkbox>-->
+
+                    <a class="forgot-password" style="cursor: pointer" (click)="forget_password(loginForm.value)">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+                <div *ngIf="forget" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+                    <mat-spinner [diameter]="30"></mat-spinner>
+                </div>
+
+
+                <button *ngIf="login" [disabled]="loginForm.invalid" aria-label="LOGIN" class="submit-button loginbutton"
+                        (click)="loginUser(loginForm.value)"
+                        color="warn"
+                        mat-raised-button>
+                    Login
+                </button>
+
+                <button *ngIf="next" [disabled]="loginForm.invalid" aria-label="LOGIN" class="submit-button loginbutton"
+                        (click)="show_password(loginForm.value)"
+                        color="accent"
+                        mat-raised-button>
+                    Next
+                </button>
+
+                <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
+
+            </form>
+
+            <!--            <div class="separator">-->
+            <!--                <span class="text">OR</span>-->
+            <!--            </div>-->
+
+            <!--            <div fxLayout="column" fxLayoutAlign="start center">-->
+
+            <!--                <button mat-raised-button class="google">-->
+            <!--                    Log in with Google-->
+            <!--                </button>-->
+
+            <!--                <button mat-raised-button class="facebook">-->
+            <!--                    Log in with Facebook-->
+            <!--                </button>-->
+
+            <!--            </div>-->
+
+            <!--            <div class="register" fxLayout="column" fxLayoutAlign="center center">-->
+            <!--                <span class="text">Don't have an account?</span>-->
+            <!--                <a class="link" [routerLink]="'/pages/auth/register-2'">Create an account</a>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>

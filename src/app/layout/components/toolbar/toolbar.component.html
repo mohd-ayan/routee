@@ -1,0 +1,184 @@
+<mat-toolbar class="p-0 mat-elevation-z1">
+
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+
+        <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="navbar-toggle-button"
+                    *ngIf="!hiddenNavbar && !rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+
+            <div class="toolbar-separator" *ngIf="!hiddenNavbar && !rightNavbar" fxHide.gt-md></div>
+
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="horizontalNavbar">
+                <div class="logo ml-16">
+                    <img class="logo-icon" src="assets/images/logos/zivame_logo.png">
+                </div>
+            </div>
+
+            <div class="px-8 px-md-16">
+                <!--                                <pristine-shortcuts [navigation]="navigation"></pristine-shortcuts>-->
+            </div>
+<!--            <div class="myserchmenu">-->
+<!--                <mat-form-field appearance="outline">-->
+<!--                    <input [formControl]="myControl" [matAutocomplete]="auto" matInput>-->
+<!--                    <mat-icon class="secondary-text">search</mat-icon>-->
+<!--                    <mat-autocomplete #auto="matAutocomplete">-->
+<!--                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">-->
+<!--                            {{option}}-->
+<!--                        </mat-option>-->
+<!--                    </mat-autocomplete>-->
+<!--                </mat-form-field>-->
+
+<!--            </div>-->
+
+        </div>
+
+        <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+
+                <button [matMenuTriggerFor]="user_profile" class="user-button"
+                        mat-button>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <!--                    <img class="avatar mr-0 mr-sm-16" src="assets/images/avatars/Velazquez.jpg">-->
+                        <mat-icon>account_circle</mat-icon>&nbsp;
+                        <span class="username mr-12" fxHide fxShow.gt-sm>{{_sessionManagement.getName}}</span>
+                        <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+                    </div>
+                </button>
+
+                <mat-menu #user_profile="matMenu" class="w-300">
+                    <mat-nav-list class="myCustomeclassFoeUserLoginSection"  >
+                        <mat-list-item (click)="viewVendorInfo()">
+                            <div fxLayout="row" fxLayoutAlign="start center" >
+                                <mat-icon mat-list-icon class="mr-4 secondary-text" style="color: rgb(253,125,146)">
+                                    account_circle
+                                </mat-icon>
+                                <p matLine fxFlex><b style="color: rgb(253,125,146)">{{_sessionManagement.getName}}</b></p>
+                            </div>
+                            <mat-icon class="ml-4" style="color: rgb(253,125,146)">keyboard_arrow_right</mat-icon>
+                        </mat-list-item>
+                    </mat-nav-list>
+
+                    <mat-divider></mat-divider>
+
+                    <mat-nav-list class="myCustomeclassFoeUserLoginSection">
+
+                        <mat-list-item [routerLink]="'/apps/chat'">
+                            <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon mat-list-icon class="mr-8 secondary-text">
+                                    person_pin
+                                </mat-icon>
+                                <p matLine fxFlex>{{_sessionManagement.getEmail}}</p>
+                                <!--                            <mat-icon class="ml-8 amber-fg">keyboard_arrow_right</mat-icon>-->
+                            </div>
+
+                        </mat-list-item>
+                        <mat-list-item >
+                            <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon mat-list-icon class="mr-8 secondary-text">
+                                    phone
+                                </mat-icon>
+                                <p matLine fxFlex>
+                                    {{_sessionManagement.getPhoneNo}}
+                                </p>
+                                <!--                            <mat-icon class="ml-8 amber-fg">keyboard_arrow_right</mat-icon>-->
+                            </div>
+
+                        </mat-list-item>
+                        <mat-list-item>
+                            <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon mat-list-icon class="mr-8 secondary-text">
+                                    email
+                                </mat-icon>
+                                <p matLine fxFlex>{{_sessionManagement.getEmailIds}}</p>
+                                <!--                            <mat-icon class="ml-8 amber-fg">keyboard_arrow_right</mat-icon>-->
+                            </div>
+
+                        </mat-list-item>
+                        <mat-list-item>
+                            <div class="w-100-p" fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon mat-list-icon class="mr-8 secondary-text">
+                                    location_on
+                                </mat-icon>
+                                <p matLine fxFlex>{{_sessionManagement.getLocCode}}</p>
+                                <!--                            <mat-icon class="ml-8 amber-fg">keyboard_arrow_right</mat-icon>-->
+                            </div>
+
+                        </mat-list-item>
+
+                    </mat-nav-list>
+                    <div fxLayout="column" >
+                        <mat-divider></mat-divider>
+                        <div (click)="LogoutFrom_Server()" matRipple class="logout_section" fxLayout="row"
+                             fxLayoutAlign="start center">
+                            <mat-icon mat-list-icon class="mr-8 secondary-text">
+                                exit_to_app
+                            </mat-icon>
+                            <p matLine fxFlex>Logout</p>
+                        </div>
+                    </div>
+                </mat-menu>
+
+            <!--            <div class="toolbar-separator"></div>-->
+
+            <!--            <pristine-search-bar (input)="search($event)"></pristine-search-bar>-->
+
+            <!--            <div class="toolbar-separator"></div>-->
+
+            <!--            <button mat-button fxHide fxShow.gt-xs-->
+            <!--                    class="language-button"-->
+            <!--                    [matMenuTriggerFor]="languageMenu">-->
+            <!--                <div fxLayout="row" fxLayoutAlign="center center">-->
+            <!--                    <img class="flag mr-8" [src]="'assets/icons/flags/'+selectedLanguage.flag+'.png'">-->
+            <!--                    <span class="iso text-uppercase">{{selectedLanguage.id}}</span>-->
+            <!--                </div>-->
+            <!--            </button>-->
+
+            <!--            <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">-->
+
+            <!--                <button mat-menu-item *ngFor="let lang of languages" (click)="setLanguage(lang)">-->
+            <!--                    <span fxLayout="row" fxLayoutAlign="start center">-->
+            <!--                        <img class="flag mr-16" [src]="'assets/icons/flags/'+lang.flag+'.png'">-->
+            <!--                        <span class="iso">{{lang.title}}</span>-->
+            <!--                    </span>-->
+            <!--                </button>-->
+
+            <!--                <button mat-menu-item [routerLink]="'/components/multi-language'">-->
+            <!--                    <div fxLayout="row" fxLayoutAlign="start center">-->
+            <!--                        <span>Learn more</span>-->
+            <!--                    </div>-->
+            <!--                </button>-->
+
+            <!--            </mat-menu>-->
+
+            <!--            <div class="toolbar-separator" fxHide fxShow.gt-xs></div>-->
+
+            <!--            <button mat-icon-button fxHide.gt-md-->
+            <!--                    class="chat-panel-toggle-button"-->
+            <!--                    (click)="toggleSidebarOpen('chatPanel')"-->
+            <!--                    aria-label="Toggle chat panel">-->
+            <!--                <mat-icon class="secondary-text">chat</mat-icon>-->
+            <!--            </button>-->
+
+            <div class="toolbar-separator"></div>
+            <!--              todo right side panel open-->
+            <!--            <button mat-icon-button-->
+            <!--                    class="quick-panel-toggle-button"-->
+            <!--                    (click)="toggleSidebarOpen('quickPanel')"-->
+            <!--                    aria-label="Toggle quick panel">-->
+            <!--                <mat-icon class="secondary-text">format_list_bulleted</mat-icon>-->
+            <!--            </button>-->
+
+            <!--            <div class="toolbar-separator" *ngIf="!hiddenNavbar && rightNavbar" fxHide fxShow.gt-xs></div>-->
+
+            <!--            <button mat-icon-button class="navbar-toggle-button"-->
+            <!--                    *ngIf="!hiddenNavbar && rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>-->
+            <!--                <mat-icon class="secondary-text">menu</mat-icon>-->
+            <!--            </button>-->
+
+        </div>
+
+    </div>
+
+</mat-toolbar>

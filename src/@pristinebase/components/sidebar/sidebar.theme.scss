@@ -1,0 +1,16 @@
+@mixin pristine-sidebar-theme($theme) {
+
+    $background: map-get($theme, background);
+
+    pristine-sidebar {
+        background: map-get($background, background);
+    }
+
+    .pristine-sidebar-overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+
+        &.pristine-sidebar-overlay-invisible {
+            background-color: transparent;
+        }
+    }
+}

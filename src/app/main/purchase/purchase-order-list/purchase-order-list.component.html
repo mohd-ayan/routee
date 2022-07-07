@@ -1,0 +1,40 @@
+<div class="page-layout simple fullwidth inner-scroll" fxLayout="column" id="Viewpurchase">
+    <div class="content p-20" pristinePerfectScrollbar>
+        <div class="mb-24" fxLayout="column" fxLayoutAlign="start">
+            <div class="mat-card mat-elevation-z1 " fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="start">
+                <div class="h4 mb-8 p-16" style="background-color: rgba(255,192,203,0.73)">
+                    Purchase Order List
+                </div>
+                <div fxFlex fxLayout="column" fxLayout.lt-sm="column">
+                    <div fxLayout="column"   fxLayout.lt-sm="column" class="p-4">
+                        <div class="example-container">
+                            <table mat-table matSort [dataSource]="dataSource">
+                                <ng-container [stickyEnd]="column=='View'" *ngFor="let column of displayColumn" [matColumnDef]="column">
+                                    <th mat-header-cell *matHeaderCellDef >
+                                        <div class="filterHeader">
+                                            <b mat-sort-header >{{column|firstAnd_Split}}</b><br>
+                                            <input (keyup)="applyFilter($event.target.value,column)"
+                                                   *ngIf="column!='View'"
+                                                   [placeholder]="column|firstAnd_Split">
+                                        </div>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <p *ngIf="column!='View' ;else elseblock">{{element[column]}}</p>
+                                        <ng-template #elseblock >
+                                            <button *ngIf="column=='View'" style="color: dodgerblue"  (click)="ViewPurchaseOrder(element)"  mat-icon-button> <mat-icon>visibility</mat-icon></button>
+                                        </ng-template>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayColumn;"></tr>
+                            </table>
+                        </div>
+                        <b style="padding: 5px" *ngIf="dataSource?.data?.length==0">No Record Found.</b>
+                        <mat-paginator [pageSizeOptions]="[10, 20, 50,100]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
